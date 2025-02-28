@@ -25,7 +25,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
-COPY --from=build /templates /app
+COPY --from=build /app/templates /app
 COPY --from=build /app/swagger.yml /app
 COPY --from=build /app/swagger.json /app
 
