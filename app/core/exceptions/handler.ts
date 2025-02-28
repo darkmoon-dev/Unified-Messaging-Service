@@ -1,5 +1,6 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
+import { VariablesNeededException } from '#mail/exceptions/variables_needed_exception'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -20,6 +21,25 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    if (error instanceof VariablesNeededException) {
+      return ctx.response.badRequest({
+        path: ctx.request.url(),
+        timestamp: Date.now(),
+        code: error.code,
+        message: error.message,
+        messages: error.errors
+      })
+    }
+
+    return ctx.response.internalServerError({
+      status: 500,
+      path: ctx.request.url(),
+      timestamp: Date.now(),
+      code: 'E_INTERNAL_SERVER_ERROR',
+      message: 'An Internal server error occurred',
+      messages: []
+    })
+
     return super.handle(error, ctx)
   }
 

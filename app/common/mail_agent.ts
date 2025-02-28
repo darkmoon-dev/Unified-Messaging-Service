@@ -41,6 +41,20 @@ export class MailAgent {
         
     }
 
+    async sendHtml(options: SendHtmlOptions) {
+        const data = await this.transporter.sendMail({
+            from: {
+                name: this.sender?.name || 'no-reply',
+                address: this.sender?.email || 'no-reply'
+            },
+            to: options.to,
+            subject: options.subject,
+            html: options.html,
+        })
+
+        console.log(data);
+    }
+
 }
 
 export type trasporterConfig = {
@@ -65,4 +79,8 @@ export type SendTextOptions = {
     to: string,
     subject: string,
     message: string
+}
+
+export type SendHtmlOptions = Omit<SendTextOptions, 'message'> & {
+    html: string
 }
