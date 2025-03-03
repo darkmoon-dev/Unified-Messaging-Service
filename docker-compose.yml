@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     container_name: "goevent-unified-message"
     ports:
-      - "9193:9193"
+      - "9194:9194"
     environment:
       - TZ=UTC
       - PORT=9194
