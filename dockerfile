@@ -31,5 +31,5 @@ COPY --from=build /app/swagger.json /app
 EXPOSE 9194
 
 #CMD npm start 
-CMD node node bin/server.js
+CMD node bin/server.js
 #CMD ["node", "./bin/server.js"]
