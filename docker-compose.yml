@@ -10,6 +10,43 @@ services:
     container_name: "goevent-unified-message"
     ports:
       - "9194:9194"
+    environment:
+      - TZ=UTC
+      - PORT=9194
+      - HOST=0.0.0.0
+      - APP_KEY=14eMwErjhxTU01FDm6mu66wQAT3D5g37
+      - APP_NAME=Organization_Service_Documentation
+      - LOG_LEVEL=info
+      - NODE_ENV=production
+      - DB_HOST=173.249.48.147
+      - DB_PORT=5432
+      - DB_USER=user02
+      - DB_PASSWORD=2025userevent
+      - DB_DATABASE=goevent_organization
+      - REDIS_HOST=localhost
+      - REDIS_PORT=6379
+      - EUREKA_APP_NAME=Organization-service
+      - EUREKA_APP_IPAADDR=173.249.48.147
+      - EUREKA_HOST=173.249.48.147
+      - EUREKA_PORT=9192
+      - MINIO_HOST=localhost
+      - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=access
+      - MINIO_SECRET_KEY=secret
+      - MINIO_USE_SSL=false
+      - RABBITMQ_HOST=173.249.48.147
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_SECURE=false
+      - SMTP_USERNAME=goevent.web@gmail.com
+      - SMTP_PASSWORD=suxxliecpnofqnkt
+      - SMTP_FROM=goevent.web@gmail.com
+      - SMTP_FROM_NAME=GoEvent
+      - SMTP_ENABLED=true
+      - SMTP_REJECT_UNAUTHORIZED=false
     # command: |
     #   sh -c "
     #     node ace migration:run --force && node bin/server.js
