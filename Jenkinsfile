@@ -19,7 +19,7 @@ pipeline {
                 // Get some code from a GitHub repository
                 //git 'https://gitlab.com/imedia-consulting/go4food/provider-ms.git'
                 //git branch: 'main', credentialsId: 'gitlab-mykey', url: 'https://gitlab.com/imedia-consulting/go4food/provider-ms.git'
-                checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'credential-gitlab', url: 'https://gitlab.com/imedia-consulting/go-event/unified-messaging-service.git']])
+                checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'credential-gitlab', url: 'https://gitlab.com/imedia-consulting/unified-messaging-service.git']])
                 // Run Maven on a Unix agent.
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
