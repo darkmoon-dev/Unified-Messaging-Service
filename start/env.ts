@@ -33,11 +33,11 @@ export default await Env.create(new URL('../', import.meta.url), {
   RABBITMQ_USER: Env.schema.string(),
   RABBITMQ_PASSWORD: Env.schema.string(),
 
-   /*
-  |----------------------------------------------------------
-  | Variables for configuring mail client
-  |----------------------------------------------------------
-  */
+  /*
+ |----------------------------------------------------------
+ | Variables for configuring mail client
+ |----------------------------------------------------------
+ */
   SMTP_ENABLED: Env.schema.boolean(),
   SMTP_HOST: Env.schema.string({ format: 'host' }),
   SMTP_PORT: Env.schema.number(),

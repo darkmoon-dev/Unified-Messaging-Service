@@ -1,5 +1,6 @@
 import { inject } from "@adonisjs/core";
 import { HttpContext } from "@adonisjs/core/http";
+import mail from "@adonisjs/mail/services/main";
 import vine from "@vinejs/vine";
 
 @inject()
@@ -20,14 +21,19 @@ export default class SendTextMailController {
      * @handle
      * @summary Send text mail
      * @operationId sendTextMail
-     * @description Sned text mail
+     * @description Send text mail
+     * @requestBody {"to": "email", "subject": "Subject", "message": "message text"} 
      */
-    async handle({ request, mail }: HttpContext) {
-        const { to, subject, message } = await this.validator.validate(request.all())
-        const mailer = mail()
+    async handle({ request, response }: HttpContext) {
+        const data= await this.validator.validate(request.all())
 
-        if (mailer == null) throw new Error()
+        await mail.sendLater((message) => {
+            message
+                .to(data.to)
+                .subject(data.subject)
+                .text(data.message)
+        })
 
-        return mailer.sendText({ to, subject, message })
+        return response.ok
     }
 }
