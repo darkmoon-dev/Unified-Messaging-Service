@@ -103,7 +103,7 @@
     "/mails/send-text": {
       "post": {
         "summary": "Send text mail (handle)",
-        "description": "Sned text mail\n\n _app/mail/controllers/send_text_mail_controller.ts_ - **handle**",
+        "description": "Send text mail\n\n _app/mail/controllers/send_text_mail_controller.ts_ - **handle**",
         "operationId": "sendTextMail",
         "parameters": [],
         "tags": [
@@ -117,14 +117,33 @@
             }
           }
         },
-        "security": []
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": "email",
+                  "subject": "Subject",
+                  "message": "message text"
+                }
+              },
+              "example": {
+                "to": "email",
+                "subject": "Subject",
+                "message": "message text"
+              }
+            }
+          }
+        }
       }
     },
     "/mails/send-from-template": {
       "post": {
-        "summary": "@summary (handle)",
-        "description": "@description\n\n _app/mail/controllers/send_from_template_mail_controller.ts_ - **handle**",
-        "operationId": "@operationId",
+        "summary": "Send mail from Template (handle)",
+        "description": "Send mail from Template\n\n _app/mail/controllers/send_from_template_mail_controller.ts_ - **handle**",
+        "operationId": "SendTemplateMail",
         "parameters": [],
         "tags": [
           "MAILS"
@@ -137,7 +156,35 @@
             }
           }
         },
-        "security": []
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": "email",
+                  "template": "string",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "param1": "value1",
+                      "param2": "value2"
+                    }
+                  }
+                }
+              },
+              "example": {
+                "to": "email",
+                "template": "string",
+                "parameters": {
+                  "param1": "value1",
+                  "param2": "value2"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
