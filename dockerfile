@@ -17,7 +17,7 @@ FROM deps AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 ADD . .
-RUN node ace build --ignore-ts-errors
+RUN npm run build --ignore-ts-errors
 
 # Production stage
 FROM base
@@ -25,8 +25,6 @@ ENV NODE_ENV=development
 WORKDIR /app
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
-COPY --from=build /app/swagger.yml /app
-COPY --from=build /app/swagger.json /app
 
 EXPOSE 9194
 
