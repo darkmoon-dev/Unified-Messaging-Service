@@ -1,6 +1,10 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import { VariablesNeededException } from '#mail/exceptions/variables_needed_exception'
+import { Exception } from "@poppinss/utils"
+import { DateTime } from 'luxon'
+import { errors as vineErrors } from '@vinejs/vine'
+import logger from '@adonisjs/core/services/logger'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -30,11 +34,31 @@ export default class HttpExceptionHandler extends ExceptionHandler {
         messages: error.errors
       })
     }
+    
+    if (error instanceof Exception) return  ctx.response.badRequest({
+      status: error.status ?? 400,
+      path: ctx.request.url(),
+      timestamp: DateTime.local(),
+      code: error.code,
+      message: error.message
+    })
 
+    if (error instanceof vineErrors.E_VALIDATION_ERROR) {
+      return ctx.response.badRequest({
+        status: error.status ?? 400,
+        path: ctx.request.url(),
+        timestamp: DateTime.local(),
+        code: error.code,
+        message: error.message,
+        messages: error.messages
+      })
+    }
+    
+    logger.error(error)
     return ctx.response.internalServerError({
       status: 500,
       path: ctx.request.url(),
-      timestamp: Date.now(),
+      timestamp: DateTime.local(),
       code: 'E_INTERNAL_SERVER_ERROR',
       message: 'An Internal server error occurred',
       messages: []
